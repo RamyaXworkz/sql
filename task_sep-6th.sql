@@ -1,65 +1,70 @@
 use sep_4th;
 CREATE TABLE orders (
     id int ,
-    order_id INT PRIMARY KEY ,
-    customer_id INT,
-    total_amount bigint,
-    check (total_amount>=500),
-    order_date DATE,
+    order_id INT  ,
+    product_name varchar(255) PRIMARY KEY,
+	customer_name varchar(50),
+    check (quantity>=5),
+    order_date varchar(60),
     quantity INT
 );
 
-INSERT INTO orders VALUES (1,201, 101,5001.00, '2023-09-07', 5);
-INSERT INTO orders VALUES(2,202, 102,600.00, '2023-09-08', 3);
-INSERT INTO orders VALUES(3,203, 103,800.00, '2023-09-02', 2);
-INSERT INTO orders VALUES(4,204, 104,700.00, '2023-09-09', 4);
-INSERT INTO orders VALUES(5,205, 105,650.00,'2023-09-10', 1);
-INSERT INTO orders VALUES(7,207, 107,934.00, '2023-09-11', 6);
-INSERT INTO orders VALUES(8,208, 108,9874.00, '2023-09-13', 9);
-INSERT INTO orders VALUES(9,209, 109,984.00, '2023-09-12', 7);
-INSERT INTO orders VALUES(10,210, 110,688.00, '2023-09-14', 10);
-INSERT INTO orders VALUES(6,211,111,550.00,'2023-06-14',15);
+INSERT INTO orders VALUES (1,201, "rice",'John Smith', '2023-09-07', 5);
+INSERT INTO orders VALUES(2,202, "Masoori",'Jane Doe', '2023-09-08', 6);
+INSERT INTO orders VALUES(3,203, "Chenna",'Bob Johnson', '2023-09-02', 7);
+INSERT INTO orders VALUES(4,204, "Granes",'Alice Brown', '2023-09-09', 8);
+INSERT INTO orders VALUES(5,205, "chair",'Eva White','2023-09-10', 9);
+INSERT INTO orders VALUES(7,207, "bottel",'David Lee', '2023-09-11', 16);
+INSERT INTO orders VALUES(8,208, "bag",'Sarah Adams', '2023-09-13', 19);
+INSERT INTO orders VALUES(9,209, "card","Ramya", '2023-09-12', 17);
+INSERT INTO orders VALUES(10,210, "cap","Spandana", '2023-09-14', 10);
+INSERT INTO orders VALUES(6,211,"Moong","Hema",'2023-06-14',15);
 
 SELECT * FROM orders order by id;
+drop table orders;
 
 SELECT * FROM orders;
     
 CREATE TABLE products (
     id int,
     product_id INT PRIMARY KEY ,
-    order_id int,foreign key(order_id) references orders(order_id),
-    product_name VARCHAR(255),
-    price int,check(price>=200),
+    product_name VARCHAR(255) ,
+    foreign key(product_name) references orders(product_name),
+	category VARCHAR(255),
+    price int,
+    check(price>=200),
     stock_quantity INT
 );    
 
 SELECT * FROM products;
-INSERT products VALUES (1,301,201,"rice",500,20);
-INSERT products VALUES (2,302,201,"Masoori",600,20);
-INSERT products VALUES (3,303,202,"Chenna",400,20);
-INSERT products VALUES (4,304,203,"Granes",600,20);
-INSERT products VALUES (5,305,204,"chair",800,20);
-INSERT products VALUES (6,306,205,"bottel",550,20);
-INSERT products VALUES (7,307,202,"bag",700,20);
-INSERT products VALUES (9,309,208,"card",650,20);
-INSERT products VALUES (10,310,203,"cap",250,20);
+INSERT products VALUES (1,301,"rice","Grocessory",500,20);
+INSERT products VALUES (2,302,"Masoori","Grocessory",600,20);
+INSERT products VALUES (3,303,"Chenna","Grocessory",400,20);
+INSERT products VALUES (4,304,"Granes","Grocessory",600,20);
+INSERT products VALUES (5,305,"chair","Plastic",800,20);
+INSERT products VALUES (6,306,"bottel","Steel",550,20);
+INSERT products VALUES (7,307,"bag","Clothing",700,20);
+INSERT products VALUES (9,309,"card","Laminated plastic",650,20);
+INSERT products VALUES (10,310,"cap","cotton",250,20);
 
 SELECT * FROM products order by id;
+drop table products;
 
-Create TABLE books(id int,b_name varchar (30) primary key,product_id int , foreign key(product_id) references products(product_id),price int ,check(price>=100));
+Create TABLE books(id int,b_name varchar (30) primary key,product_id int , foreign key(product_id) references products(product_id),version varchar(60),price int ,check(price>=100));
 
-INSERT INTO books VALUE(1,"To Kill a Mockingbird",301,499);
-INSERT INTO books VALUE(2,"The Great Gatsby",302,299);
-INSERT INTO books VALUE(3,"Pride and Prejudice",303,199);
-INSERT INTO books VALUE(4,"The catcher in the Rye",303,399);
-INSERT INTO books VALUE(5,"Wuthering Heights",304,599);
-INSERT INTO books VALUE(6,"TCatch-22",305,699);
-INSERT INTO books VALUE(7,"One Hundred Years of Solitude",306,799);
-INSERT INTO books VALUE(8,"Jane Eyre",307,899);
-INSERT INTO books VALUE(9,"Lolita",302,159);
-INSERT INTO books VALUE(10,"Great Expectations",307,459);
+INSERT INTO books VALUE(1,"To Kill a Mockingbird",301,"1st",499);
+INSERT INTO books VALUE(2,"The Great Gatsby",302,"2nd",299);
+INSERT INTO books VALUE(3,"Pride and Prejudice",303,"1st",199);
+INSERT INTO books VALUE(4,"The catcher in the Rye",303,"4th",399);
+INSERT INTO books VALUE(5,"Wuthering Heights",304,"3rd",599);
+INSERT INTO books VALUE(6,"TCatch-22",305,"5th",699);
+INSERT INTO books VALUE(7,"One Hundred Years of Solitude",306,"1st",799);
+INSERT INTO books VALUE(8,"Jane Eyre",307,"2nd",899);
+INSERT INTO books VALUE(9,"Lolita",302,"3rd",159);
+INSERT INTO books VALUE(10,"Great Expectations",307,"4th",459);
 
 SELECT * from books ;
+drop table books;
 
 SELECT * FROM books order by id;
 
@@ -83,7 +88,7 @@ INSERT INTO authors values(9,'Toni', 'Marrison', '1992-04-22', 'Italian', 'Lolit
 INSERT INTO authors values(10,'Charles', 'Dickness', '1986-01-08', 'Dutch', 'Great Expectations');
 
 SELECT * FROM authors ;
-
+drop table authors;
 
 CREATE TABLE Scientist (
     scientist_id INT PRIMARY KEY,
@@ -106,3 +111,4 @@ INSERT INTO Scientist values(9, '1992-04-22', 'Psychology', 'william.clark@gamil
 INSERT INTO Scientist values (10, '1986-01-08', 'Engineering', 'olivia.anderson@gamil.com', 'Savitribai Phule Pune University');
 
 SELECT * FROM Scientist;
+drop table Scientist;
